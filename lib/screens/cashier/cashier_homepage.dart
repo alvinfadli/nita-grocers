@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/cashier/cashier_history.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
 
 class cashierHomepage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _CashierHomepageState extends State<cashierHomepage> {
   int _selectedIndex = 0;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
     () => cashierHomepage(),
+    () => CashierListProduct(),
     () => CashierHistoryPage(),
   ];
 

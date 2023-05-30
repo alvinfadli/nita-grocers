@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_navigation.dart';
 import 'cashier_homepage.dart';
+import 'list_product.dart';
 
 class Transaction {
   final String title;
@@ -27,10 +28,11 @@ class _CashierHistoryPageState extends State<CashierHistoryPage> {
     );
   }
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 2;
 
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
     () => cashierHomepage(),
+    () => CashierListProduct(),
     () => CashierHistoryPage(),
   ];
 
