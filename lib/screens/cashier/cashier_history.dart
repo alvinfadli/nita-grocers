@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/bottom_navigation.dart';
+import 'cashier_homepage.dart';
 
 class Transaction {
   final String title;
@@ -8,12 +10,30 @@ class Transaction {
   Transaction({required this.title, required this.amount, required this.date});
 }
 
-class TransactionHistoryPage extends StatefulWidget {
+class CashierHistoryPage extends StatefulWidget {
+  const CashierHistoryPage({Key? key}) : super(key: key);
   @override
-  _TransactionHistoryPageState createState() => _TransactionHistoryPageState();
+  _CashierHistoryPageState createState() => _CashierHistoryPageState();
 }
 
-class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
+class _CashierHistoryPageState extends State<CashierHistoryPage> {
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => _widgetOptions[index]()),
+    );
+  }
+
+  int _selectedIndex = 1;
+
+  static List<Widget Function()> _widgetOptions = <Widget Function()>[
+    () => cashierHomepage(),
+    () => CashierHistoryPage(),
+  ];
+
   final List<Transaction> transactions = [
     Transaction(title: 'Kasir1', amount: 49.99, date: DateTime.now()),
     Transaction(title: 'Kasir2', amount: 12.99, date: DateTime.now()),
@@ -41,6 +61,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Riwayat Transaksi'),
         backgroundColor: Color.fromARGB(255, 124, 181, 24),
       ),
@@ -72,12 +93,16 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigation(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+      ),
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: TransactionHistoryPage(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     home: CashierHistoryPage(),
+//   ));
+// }

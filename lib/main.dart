@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../screens/login.dart';
 import '../screens/cashier/cashier_homepage.dart';
+import 'screens/cashier/cashier_history.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: GoogleFonts.fredokaTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       title: 'My Flutter App',
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        '/cashier_homepage': (context) => cashierHomepage(),
+        // '/cashier_homepage': (context) => cashierHomepage(),
+        // '/cashier_history': (context) => TransactionHistoryPage(),
       },
     );
   }
