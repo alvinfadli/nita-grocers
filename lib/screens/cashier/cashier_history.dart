@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_navigation.dart';
+import 'package:nita_grocers/screens/cashier/list_transaction.dart';
 import 'cashier_homepage.dart';
 import 'list_product.dart';
 
@@ -28,12 +29,12 @@ class _CashierHistoryPageState extends State<CashierHistoryPage> {
     );
   }
 
-  int _selectedIndex = 2;
-
+  int _selectedIndex = 3;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
-    () => cashierHomepage(),
-    () => CashierListProduct(),
-    () => CashierHistoryPage(),
+    () => const cashierHomepage(),
+    () => const CashierListTransaction(),
+    () => const CashierListProduct(),
+    () => const CashierHistoryPage(),
   ];
 
   final List<Transaction> transactions = [

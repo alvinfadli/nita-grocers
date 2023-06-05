@@ -1,36 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'package:nita_grocers/screens/cashier/insert_product.dart';
 import 'package:nita_grocers/screens/cashier/cashier_history.dart';
+import 'package:nita_grocers/screens/cashier/list_transaction.dart';
 import 'cashier_homepage.dart';
 import '../widgets/bottom_navigation.dart';
 
 class CashierListProduct extends StatefulWidget {
   const CashierListProduct({Key? key}) : super(key: key);
+
   @override
   _CashierListProductState createState() => _CashierListProductState();
 }
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'List Barang',
-//       theme: ThemeData(
-//         primaryColor: Color(0xFF7CB518), // Contoh warna hijau dengan kode heksadesimal #7CB518
-//       ),
-//       home: ListProdukPage(),
-//     );
-//   }
-// }
-
-// class ListProdukPage extends StatelessWidget {
-// final List<Produk> produkList = [
-//   Produk('P001', 'Lemineral 600ml', 'Minuman', 3000, 5000, 100, Icons.local_drink),
-//   Produk('P002', 'Gerry Salut 25g', 'Makanan', 10000, 12000, 5, Icons.fastfood),
-//   Produk('P003', 'Marjan Melon', 'Minuman', 18000, 20000, 20, Icons.local_drink),
-//   Produk('P004', 'Gula 500g', 'Makanan', 15000, 20000, 15, Icons.fastfood),
-
-//   ];
 class _CashierListProductState extends State<CashierListProduct> {
   void _onItemTapped(int index) {
     setState(() {
@@ -42,21 +26,49 @@ class _CashierListProductState extends State<CashierListProduct> {
     );
   }
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 2;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
-    () => cashierHomepage(),
-    () => CashierListProduct(),
-    () => CashierHistoryPage(),
+    () => const cashierHomepage(),
+    () => const CashierListTransaction(),
+    () => const CashierListProduct(),
+    () => const CashierHistoryPage(),
   ];
-  final List<Produk> produkList = [
-    Produk('P001', 'Lemineral 600ml', 'Minuman', 3000, 5000, 100,
-        Icons.local_drink),
-    Produk(
-        'P002', 'Gerry Salut 25g', 'Makanan', 10000, 12000, 5, Icons.fastfood),
-    Produk(
-        'P003', 'Marjan Melon', 'Minuman', 18000, 20000, 20, Icons.local_drink),
-    Produk('P004', 'Gula 500g', 'Makanan', 15000, 20000, 15, Icons.fastfood),
-  ];
+  List<Produk> produkList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProductData();
+  }
+
+  Future<void> fetchProductData() async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://group1mobileproject.000webhostapp.com/getProduct.php'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = jsonDecode(response.body);
+        List<Produk> products = [];
+        for (var data in responseData) {
+          Produk product = Produk(
+            data['namaProduk'],
+            data['kategori'],
+            data['supplier'],
+            int.parse(data['hargaBeli']),
+            int.parse(data['hargaJual']),
+            int.parse(data['stok']),
+          );
+          products.add(product);
+        }
+        setState(() {
+          produkList = products;
+        });
+      } else {
+        throw Exception('Failed to fetch product data');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,44 +79,37 @@ class _CashierListProductState extends State<CashierListProduct> {
         backgroundColor: Color(0xFF7CB518),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: DataTable(
-          columns: [
-            DataColumn(label: Text('Nomor Produk')),
-            DataColumn(label: Text('Nama Produk')),
-            DataColumn(label: Text('Kategori')),
-            DataColumn(label: Text('Harga Pokok')),
-            DataColumn(label: Text('Harga Jual')),
-            DataColumn(label: Text('Stok')),
-          ],
-          rows: produkList.map((Produk produk) {
-            return DataRow(cells: [
-              DataCell(Text(produk.nomorProduk)),
-              DataCell(
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailProdukPage(produk),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(produk.icon),
-                      SizedBox(width: 8),
-                      Text(produk.namaProduk),
-                    ],
+        child: Center(
+          child: DataTable(
+            columns: [
+              DataColumn(label: Text('Nama Produk')),
+              DataColumn(label: Text('Harga Beli')),
+              DataColumn(label: Text('Harga Jual')),
+              DataColumn(label: Text('Stok')),
+            ],
+            rows: produkList.map((Produk produk) {
+              return DataRow(
+                cells: [
+                  DataCell(
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailProdukPage(produk),
+                          ),
+                        );
+                      },
+                      child: Text(produk.namaProduk),
+                    ),
                   ),
-                ),
-              ),
-              DataCell(Text(produk.kategori)),
-              DataCell(Text(produk.hargaPokok.toString())),
-              DataCell(Text(produk.hargaJual.toString())),
-              DataCell(Text(produk.stok.toString())),
-            ]);
-          }).toList(),
+                  DataCell(Text(produk.hargaBeli.toString())),
+                  DataCell(Text(produk.hargaJual.toString())),
+                  DataCell(Text(produk.stok.toString())),
+                ],
+              );
+            }).toList(),
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigation(
@@ -113,8 +118,6 @@ class _CashierListProductState extends State<CashierListProduct> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Aksi saat tombol "Add Product" ditekan
-          // Contoh: Navigasi ke halaman tambah produk
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => InsertProductPage()));
         },
@@ -127,16 +130,21 @@ class _CashierListProductState extends State<CashierListProduct> {
 }
 
 class Produk {
-  final String nomorProduk;
   final String namaProduk;
   final String kategori;
-  final int hargaPokok;
+  final String supplier;
+  final int hargaBeli;
   final int hargaJual;
   final int stok;
-  final IconData icon;
 
-  Produk(this.nomorProduk, this.namaProduk, this.kategori, this.hargaPokok,
-      this.hargaJual, this.stok, this.icon);
+  Produk(
+    this.namaProduk,
+    this.kategori,
+    this.supplier,
+    this.hargaBeli,
+    this.hargaJual,
+    this.stok,
+  );
 }
 
 class DetailProdukPage extends StatelessWidget {
@@ -155,12 +163,6 @@ class DetailProdukPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(produk.icon, size: 64),
-            SizedBox(height: 16),
-            Text(
-              'Nama Produk: ${produk.namaProduk}',
-              style: TextStyle(fontSize: 24),
-            ),
             SizedBox(height: 16),
             Text(
               'Kategori: ${produk.kategori}',
@@ -168,7 +170,7 @@ class DetailProdukPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Harga Pokok: ${produk.hargaPokok}',
+              'Harga Beli: ${produk.hargaBeli}',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 16),

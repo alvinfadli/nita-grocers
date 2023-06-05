@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        // '/cashier_homepage': (context) => cashierHomepage(),
+        '/login': (context) => cashierHomepage(),
         // '/cashier_history': (context) => TransactionHistoryPage(),
       },
     );

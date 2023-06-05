@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/cashier/cashier_history.dart';
+import 'package:nita_grocers/screens/cashier/list_transaction.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
@@ -48,9 +49,10 @@ class _CashierHomepageState extends State<cashierHomepage> {
 
   int _selectedIndex = 0;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
-    () => cashierHomepage(),
-    () => CashierListProduct(),
-    () => CashierHistoryPage(),
+    () => const cashierHomepage(),
+    () => const CashierListTransaction(),
+    () => const CashierListProduct(),
+    () => const CashierHistoryPage(),
   ];
 
   @override
@@ -86,8 +88,9 @@ class _CashierHomepageState extends State<cashierHomepage> {
         title: Text('Nita Grocers'),
         backgroundColor: Color.fromARGB(255, 124, 181, 24),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
+        shrinkWrap: true,
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
             padding: EdgeInsets.all(16.0),
