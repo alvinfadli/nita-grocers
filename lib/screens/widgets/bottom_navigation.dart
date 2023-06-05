@@ -36,10 +36,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money),
-            label: 'Transaction',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Products',
           ),

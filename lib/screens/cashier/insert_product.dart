@@ -202,92 +202,98 @@ class _InsertProductState extends State<InsertProductPage> {
         automaticallyImplyLeading: true,
         backgroundColor: Color.fromARGB(255, 124, 181, 24),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              TextField(
-                controller: productNameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Nama Produk',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: productNameController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Nama Produk',
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.0),
-              TextField(
-                controller: hargaBeliController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Harga Beli',
+                SizedBox(height: 10.0),
+                TextField(
+                  controller: hargaBeliController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Harga Beli',
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.0),
-              TextField(
-                controller: hargaJualController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Harga Jual',
+                SizedBox(height: 10.0),
+                TextField(
+                  controller: hargaJualController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Harga Jual',
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.0),
-              TextField(
-                controller: stokProdukController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Stok Produk',
+                SizedBox(height: 10.0),
+                TextField(
+                  controller: stokProdukController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Stok Produk',
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.0),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Kategori',
+                SizedBox(height: 10.0),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Kategori',
+                  ),
+                  value: selectedCategory,
+                  items: categories.map((String category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedCategory = value;
+                    });
+                  },
                 ),
-                value: selectedCategory,
-                items: categories.map((String category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedCategory = value;
-                  });
-                },
-              ),
-              SizedBox(height: 10.0),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Supplier',
+                SizedBox(height: 10.0),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Supplier',
+                  ),
+                  value: selectedSupplier,
+                  items: suppliers.map((String supplier) {
+                    return DropdownMenuItem<String>(
+                      value: supplier,
+                      child: Text(supplier),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedSupplier = value;
+                    });
+                  },
                 ),
-                value: selectedSupplier,
-                items: suppliers.map((String supplier) {
-                  return DropdownMenuItem<String>(
-                    value: supplier,
-                    child: Text(supplier),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedSupplier = value;
-                  });
-                },
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  textStyle: TextStyle(fontSize: 20),
-                  primary: Color.fromARGB(255, 124, 181, 24),
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(fontSize: 20),
+                    primary: Color.fromARGB(255, 124, 181, 24),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    minimumSize: Size(200, 50), // Adjust the height here
+                  ),
+                  onPressed: () {
+                    _submitProduct();
+                  },
+                  child: Text('Input Produk'),
                 ),
-                onPressed: () {
-                  _submitProduct();
-                },
-                child: Text('Input Produk'),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

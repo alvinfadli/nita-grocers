@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/cashier/cashier_history.dart';
-import 'package:nita_grocers/screens/cashier/list_transaction.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
@@ -50,7 +49,6 @@ class _CashierHomepageState extends State<cashierHomepage> {
   int _selectedIndex = 0;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
     () => const cashierHomepage(),
-    () => const CashierListTransaction(),
     () => const CashierListProduct(),
     () => const CashierHistoryPage(),
   ];

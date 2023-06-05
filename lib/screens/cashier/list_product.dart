@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:nita_grocers/screens/cashier/insert_product.dart';
 import 'package:nita_grocers/screens/cashier/cashier_history.dart';
-import 'package:nita_grocers/screens/cashier/list_transaction.dart';
 import 'cashier_homepage.dart';
 import '../widgets/bottom_navigation.dart';
 
@@ -26,10 +25,9 @@ class _CashierListProductState extends State<CashierListProduct> {
     );
   }
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
     () => const cashierHomepage(),
-    () => const CashierListTransaction(),
     () => const CashierListProduct(),
     () => const CashierHistoryPage(),
   ];
@@ -74,42 +72,41 @@ class _CashierListProductState extends State<CashierListProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products'),
+        title: const Text('Products'),
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFF7CB518),
+        backgroundColor: const Color(0xFF7CB518),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: DataTable(
-            columns: [
-              DataColumn(label: Text('Nama Produk')),
-              DataColumn(label: Text('Harga Beli')),
-              DataColumn(label: Text('Harga Jual')),
-              DataColumn(label: Text('Stok')),
-            ],
-            rows: produkList.map((Produk produk) {
-              return DataRow(
-                cells: [
-                  DataCell(
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailProdukPage(produk),
-                          ),
-                        );
-                      },
-                      child: Text(produk.namaProduk),
-                    ),
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          columns: [
+            const DataColumn(label: Text('Nama Produk')),
+            const DataColumn(label: Text('Harga Beli')),
+            const DataColumn(label: Text('Harga Jual')),
+            const DataColumn(label: Text('Stok')),
+          ],
+          rows: produkList.map((Produk produk) {
+            return DataRow(
+              cells: [
+                DataCell(
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailProdukPage(produk),
+                        ),
+                      );
+                    },
+                    child: Text(produk.namaProduk),
                   ),
-                  DataCell(Text(produk.hargaBeli.toString())),
-                  DataCell(Text(produk.hargaJual.toString())),
-                  DataCell(Text(produk.stok.toString())),
-                ],
-              );
-            }).toList(),
-          ),
+                ),
+                DataCell(Text(produk.hargaBeli.toString())),
+                DataCell(Text(produk.hargaJual.toString())),
+                DataCell(Text(produk.stok.toString())),
+              ],
+            );
+          }).toList(),
         ),
       ),
       bottomNavigationBar: BottomNavigation(
@@ -118,11 +115,13 @@ class _CashierListProductState extends State<CashierListProduct> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => InsertProductPage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const InsertProductPage()));
         },
-        child: Icon(Icons.add),
-        backgroundColor: Color(0xFF7CB518),
+        child: const Icon(Icons.add),
+        backgroundColor: const Color(0xFF7CB518),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
@@ -156,32 +155,32 @@ class DetailProdukPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Produk'),
-        backgroundColor: Color(0xFF7CB518),
+        title: const Text('Detail Produk'),
+        backgroundColor: const Color(0xFF7CB518),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Kategori: ${produk.kategori}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Harga Beli: ${produk.hargaBeli}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Harga Jual: ${produk.hargaJual}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Stok: ${produk.stok}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
           ],
         ),
