@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/login.dart';
-import '../screens/cashier/cashier_homepage.dart';
-import 'screens/cashier/cashier_history.dart';
+import 'screens/admin/admin_homepage.dart';
+import 'screens/admin/admin_history.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        '/login': (context) => cashierHomepage(),
+        '/login': (context) => AdminHomepage(),
         // '/cashier_history': (context) => TransactionHistoryPage(),
       },
     );

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:nita_grocers/screens/cashier/insert_product.dart';
-import 'package:nita_grocers/screens/cashier/cashier_history.dart';
-import 'cashier_homepage.dart';
+import 'package:nita_grocers/screens/admin/insert_product.dart';
+import 'package:nita_grocers/screens/admin/admin_history.dart';
+import 'admin_homepage.dart';
 import '../widgets/bottom_navigation.dart';
 
 class CashierListProduct extends StatefulWidget {
@@ -27,9 +26,9 @@ class _CashierListProductState extends State<CashierListProduct> {
 
   int _selectedIndex = 1;
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
-    () => const cashierHomepage(),
+    () => const AdminHomepage(),
     () => const CashierListProduct(),
-    () => const CashierHistoryPage(),
+    () => const AdminHistoryTransaction(),
   ];
   List<Produk> produkList = [];
 
