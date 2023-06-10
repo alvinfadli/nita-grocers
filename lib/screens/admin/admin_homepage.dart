@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
 
@@ -9,30 +8,6 @@ class AdminHomepage extends StatefulWidget {
   const AdminHomepage({Key? key}) : super(key: key);
   @override
   _AdminHomepageState createState() => _AdminHomepageState();
-}
-
-class LineChartWidget extends StatelessWidget {
-  final List<charts.Series<num, int>> seriesList;
-  final bool animate;
-
-  LineChartWidget(this.seriesList, {required this.animate});
-
-  @override
-  Widget build(BuildContext context) {
-    return charts.LineChart(
-      seriesList,
-      animate: animate,
-      defaultRenderer: charts.LineRendererConfig(
-        includeArea: true,
-        stacked: false,
-      ),
-      primaryMeasureAxis: charts.NumericAxisSpec(
-        tickProviderSpec: charts.BasicNumericTickProviderSpec(
-          desiredTickCount: 5,
-        ),
-      ),
-    );
-  }
 }
 
 class _AdminHomepageState extends State<AdminHomepage> {
@@ -62,24 +37,6 @@ class _AdminHomepageState extends State<AdminHomepage> {
 
   @override
   Widget build(BuildContext context) {
-    final data = [
-      {'x': 0, 'y': 5},
-      {'x': 1, 'y': 10},
-      {'x': 2, 'y': 15},
-      {'x': 3, 'y': 12},
-      {'x': 4, 'y': 8},
-    ];
-
-    final series = [
-      charts.Series<num, int>(
-        id: 'Line Chart',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (num point, _) => point.toInt(),
-        measureFn: (num point, _) => point.toDouble(),
-        data: data.map((point) => point['y'] as num).toList(),
-      ),
-    ];
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -90,66 +47,137 @@ class _AdminHomepageState extends State<AdminHomepage> {
         shrinkWrap: true,
         // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Padding(
+          //   padding: EdgeInsets.all(16.0),
+          //   child: Column(),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.all(16.0),
+          //   child: Column(),
+          // ),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Grafik Penjualan Bulanan',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Container(
-                  height: 200,
-                  //child: buildLineChart(generateChartData()),
-                  child: LineChartWidget(series, animate: true),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Penjualan Hari Ini',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Container(
-                  height: 200,
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Container 2',
-                      style: TextStyle(fontSize: 24, color: Colors.white),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 2.0,
+                                blurRadius: 5.0,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.white,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Handle button 1 click
+                              },
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            8.0), // Add padding to the top of the image
+                                    child: Image(
+                                      image: AssetImage('assets/supplier.png'),
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Suppliers',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Produk Terlaris',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Container(
-                  height: 200,
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Container 3',
-                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    SizedBox(width: 16.0),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 2.0,
+                                blurRadius: 5.0,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.white,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Handle button 2 click
+                              },
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            8.0), // Add padding to the top of the image
+                                    child: Image(
+                                      image: AssetImage('assets/cashier.png'),
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Cashiers',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -162,10 +190,4 @@ class _AdminHomepageState extends State<AdminHomepage> {
       ),
     );
   }
-}
-
-class SalesData {
-  SalesData(this.year, this.sales);
-  final DateTime year;
-  final double sales;
 }

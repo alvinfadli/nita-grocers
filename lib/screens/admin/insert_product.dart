@@ -156,8 +156,8 @@ class _InsertProductState extends State<InsertProductPage> {
       Uri.parse(url),
       body: {
         'nama_produk': productNameController.text,
-        'kategori_id': selectedCategory ?? '',
-        'supplier_id': selectedSupplier ?? '',
+        'id_kategori': selectedCategory ?? '',
+        'id_supplier': selectedSupplier ?? '',
         'harga_beli': hargaBeliController.text,
         'harga_jual': hargaJualController.text,
         'stok': stokProdukController.text,

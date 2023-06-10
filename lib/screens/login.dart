@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:nita_grocers/screens/admin/admin_homepage.dart';
+import 'package:nita_grocers/screens/cashier/cashier_homepage.dart';
 //import 'package:umkm_galon/main.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,13 +25,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
-      if (result['status'] == 'success') {
+      if (result['status'] == 'success' && result['id_role'] == 1) {
         print(result['message']);
         // Login successful
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const AdminHomepage()),
+        );
+      } else if (result['status'] == 'success' && result['id_role'] == 2) {
+        print(result['message']);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => CashierHomepage()),
         );
       } else {
         // Login failed

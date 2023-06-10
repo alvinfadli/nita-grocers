@@ -1,32 +1,73 @@
+// import 'package:flutter/material.dart';
+// import '../screens/login.dart';
+// import 'screens/admin/admin_homepage.dart';
+// import 'screens/admin/admin_history.dart';
+// import 'package:google_fonts/google_fonts.dart';
+
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(
+//         textTheme: GoogleFonts.fredokaTextTheme(
+//           Theme.of(context).textTheme,
+//         ),
+//       ),
+//       title: 'My Flutter App',
+//       initialRoute: '/',
+//       routes: {
+//         '/': (context) => LoginScreen(),
+//         '/login': (context) => AdminHomepage(),
+//         // '/cashier_history': (context) => TransactionHistoryPage(),
+//       },
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../screens/login.dart';
 import 'screens/admin/admin_homepage.dart';
 import 'screens/admin/admin_history.dart';
+import 'screens/cashier/cashier_cart.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'screens/cashier/cart_provider.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: GoogleFonts.fredokaTextTheme(
-          Theme.of(context).textTheme,
+    return ChangeNotifierProvider(
+      create: (context) => CartProvider(), // Add the CartProvider here
+      child: MaterialApp(
+        theme: ThemeData(
+          textTheme: GoogleFonts.fredokaTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
+        title: 'My Flutter App',
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          '/login': (context) => AdminHomepage(),
+          '/cashier_cart': (context) => CashierCart(
+                clickedItems: [],
+              ), // Add the CashierCart route
+          '/admin_history': (context) => AdminHistoryTransaction(),
+        },
       ),
-      title: 'My Flutter App',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/login': (context) => AdminHomepage(),
-        // '/cashier_history': (context) => TransactionHistoryPage(),
-      },
     );
   }
 }
