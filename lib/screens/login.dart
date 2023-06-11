@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:nita_grocers/screens/admin/admin_homepage.dart';
 import 'package:nita_grocers/screens/cashier/cashier_homepage.dart';
-//import 'package:umkm_galon/main.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
