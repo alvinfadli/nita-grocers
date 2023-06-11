@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:nita_grocers/screens/admin/insert_product.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
+import '../login.dart';
 import 'admin_homepage.dart';
 import '../widgets/bottom_navigation.dart';
 
@@ -29,6 +30,7 @@ class _CashierListProductState extends State<CashierListProduct> {
     () => const AdminHomepage(),
     () => const CashierListProduct(),
     () => const AdminHistoryTransaction(),
+    () => LoginScreen(),
   ];
   List<Produk> produkList = [];
 
@@ -82,7 +84,7 @@ class _CashierListProductState extends State<CashierListProduct> {
             const DataColumn(label: Text('Nama Produk')),
             const DataColumn(label: Text('Harga Beli')),
             const DataColumn(label: Text('Harga Jual')),
-            const DataColumn(label: Text('Stok')),
+            //const DataColumn(label: Text('Stok')),
           ],
           rows: produkList.map((Produk produk) {
             return DataRow(
@@ -102,7 +104,7 @@ class _CashierListProductState extends State<CashierListProduct> {
                 ),
                 DataCell(Text(produk.hargaBeli.toString())),
                 DataCell(Text(produk.hargaJual.toString())),
-                DataCell(Text(produk.stok.toString())),
+                //DataCell(Text(produk.stok.toString())),
               ],
             );
           }).toList(),

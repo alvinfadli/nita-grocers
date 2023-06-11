@@ -43,6 +43,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
             icon: Icon(Icons.history),
             label: 'History',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'Logout',
+          ),
         ],
         currentIndex: widget.selectedIndex,
         onTap: widget.onItemTapped,

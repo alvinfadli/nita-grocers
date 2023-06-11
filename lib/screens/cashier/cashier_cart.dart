@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
 import 'package:nita_grocers/screens/admin/list_product.dart';
 import 'package:provider/provider.dart';
+import '../../Providers/AuthProviders.dart';
 import 'cart_provider.dart';
 import 'cashier_homepage.dart';
 import 'package:nita_grocers/screens/login.dart';
@@ -36,10 +37,12 @@ class _CashierCartState extends State<CashierCart> {
     () => LoginScreen(),
   ];
 
-  Future<void> submitOrder() async {
+  Future<void> submitOrder(BuildContext context) async {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final clickedItems = cartProvider.clickedItems;
 
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final userID = authProvider.userID; // Access the name_user property
     // Prepare the data to be sent to the server
     final List<Map<String, dynamic>> orderDetails = clickedItems.map((item) {
       return {
@@ -53,9 +56,9 @@ class _CashierCartState extends State<CashierCart> {
     final orderData = {
       'order_date': DateTime.now().toString(),
       'total_price': totalSum,
-      'order_details': orderDetails, // Include the order_details key
+      'order_details': orderDetails,
+      'id_user': userID, // Include the name_user key
     };
-
     final url =
         'https://group1mobileproject.000webhostapp.com/inputTransaction.php';
     final response =
@@ -146,7 +149,8 @@ class _CashierCartState extends State<CashierCart> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            submitOrder(); // Call the submitOrder method
+                            submitOrder(
+                                context); // Call the submitOrder method with the context
                             context.read<CartProvider>().clearCart();
                           },
                           style: ElevatedButton.styleFrom(
@@ -180,71 +184,3 @@ class _CashierCartState extends State<CashierCart> {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:nita_grocers/screens/admin/admin_history.dart';
-// import 'package:nita_grocers/screens/admin/list_product.dart';
-// import 'cashier_homepage.dart';
-// import '../login.dart';
-// import 'cart_provider.dart';
-// import '../widgets/cashier_bottom_navigation.dart';
-
-// class CashierCart extends StatelessWidget {
-//   final List<ClickedItem> clickedItems;
-
-//   CashierCart({Key? key, required this.clickedItems}) : super(key: key);
-
-//   void _onItemTapped(int index, BuildContext context) {
-//     Provider.of<CartProvider>(context, listen: false).clearCart();
-//     Navigator.pushReplacement(
-//       context,
-//       MaterialPageRoute(builder: (context) => _widgetOptions[index]()),
-//     );
-//   }
-
-//   int _selectedIndex = 1;
-//   static List<Widget Function()> _widgetOptions = <Widget Function()>[
-//     () => CashierHomepage(),
-//     () => CashierCart(
-//           clickedItems: [],
-//         ),
-//     () => AdminHistoryTransaction(),
-//     () => LoginScreen(),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final cartProvider = Provider.of<CartProvider>(context);
-//     final clickedItems = cartProvider.clickedItems;
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         automaticallyImplyLeading: false,
-//         title: Text('Nita Grocers'),
-//         backgroundColor: Color.fromARGB(255, 124, 181, 24),
-//         actions: [
-//           IconButton(
-//             icon: Icon(Icons.print),
-//             onPressed: () {},
-//           ),
-//         ],
-//       ),
-//       body: ListView.builder(
-//         itemCount: clickedItems.length,
-//         itemBuilder: (context, index) {
-//           final clickedItem = clickedItems[index];
-//           return ListTile(
-//             title: Text(clickedItem.name),
-//             subtitle: Text('Amount: ${clickedItem.amount}'),
-//             trailing: Text('Total Price: \$${clickedItem.totalPrice}'),
-//           );
-//         },
-//       ),
-//       bottomNavigationBar: CashierBottomNavigation(
-//         selectedIndex: _selectedIndex,
-//         onItemTapped: (index) => _onItemTapped(index, context),
-//       ),
-//     );
-//   }
-// }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../login.dart';
 import '../widgets/bottom_navigation.dart';
 import 'admin_homepage.dart';
 import 'list_product.dart';
@@ -30,6 +31,7 @@ class _AdminHistoryTransactionState extends State<AdminHistoryTransaction> {
     () => const AdminHomepage(),
     () => const CashierListProduct(),
     () => const AdminHistoryTransaction(),
+    () => LoginScreen(),
   ];
 
   List transactionList = [];

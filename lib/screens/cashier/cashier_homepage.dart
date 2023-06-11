@@ -5,6 +5,7 @@ import 'package:nita_grocers/screens/admin/admin_history.dart';
 import 'package:nita_grocers/screens/admin/list_product.dart';
 import 'package:nita_grocers/screens/cashier/cart_provider.dart';
 import 'package:provider/provider.dart';
+import '../../Providers/AuthProviders.dart';
 import '../login.dart';
 import '../widgets/cashier_bottom_navigation.dart';
 import 'cashier_cart.dart';
@@ -128,7 +129,6 @@ class _CashierHomepageState extends State<CashierHomepage> {
 
   @override
   Widget build(BuildContext context) {
-    printClickedItems();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

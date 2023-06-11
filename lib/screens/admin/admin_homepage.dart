@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
+import '../login.dart';
 import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
 
@@ -26,6 +27,7 @@ class _AdminHomepageState extends State<AdminHomepage> {
     () => const AdminHomepage(),
     () => const CashierListProduct(),
     () => const AdminHistoryTransaction(),
+    () => LoginScreen(),
   ];
 
   @override
