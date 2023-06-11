@@ -104,7 +104,7 @@ class _AdminHistoryTransactionState extends State<AdminHistoryTransaction> {
           if (selectedDate != null) {
             final formatter = DateFormat('yyyy-MM-dd');
             final transactionDate =
-                formatter.parse(transactionList[index]['tanggaltrans']);
+                formatter.parse(transactionList[index]['order_date']);
             if (transactionDate != selectedDate) {
               return Container(); // Jika tanggal transaksi tidak cocok dengan tanggal pencarian, tampilkan kontainer kosong
             }
@@ -119,7 +119,7 @@ class _AdminHistoryTransactionState extends State<AdminHistoryTransaction> {
                 size: 30,
               ),
               title: Text(
-                transactionList[index]['username'],
+                transactionList[index]['name_user'],
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -127,7 +127,7 @@ class _AdminHistoryTransactionState extends State<AdminHistoryTransaction> {
                 ),
               ),
               subtitle: Text(
-                transactionList[index]['tanggaltrans'],
+                transactionList[index]['order_date'],
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.normal,
@@ -136,8 +136,8 @@ class _AdminHistoryTransactionState extends State<AdminHistoryTransaction> {
               ),
               trailing: Text(
                 'Rp.' +
-                    NumberFormat('#,###')
-                        .format(int.parse(transactionList[index]['total'])),
+                    NumberFormat('#,###').format(
+                        int.parse(transactionList[index]['total_amount'])),
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
