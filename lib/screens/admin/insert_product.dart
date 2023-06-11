@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'list_product.dart';
 
 class InsertProductPage extends StatefulWidget {
@@ -13,20 +15,69 @@ class _InsertProductState extends State<InsertProductPage> {
   String? selectedCategory;
   String? selectedSupplier;
 
-  List<String> categories = [
-    '1',
-    '2',
-  ];
-
-  List<String> suppliers = [
-    '1',
-    '2',
-  ];
-
+  List<Map<String, String>> categories = [];
+  List<Map<String, String>> suppliers = [];
   TextEditingController productNameController = TextEditingController();
   TextEditingController hargaBeliController = TextEditingController();
   TextEditingController hargaJualController = TextEditingController();
   TextEditingController stokProdukController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCategories();
+    fetchSuppliers();
+  }
+
+  Future<void> fetchCategories() async {
+    try {
+      final url = Uri.parse(
+          'https://group1mobileproject.000webhostapp.com/getCategories.php');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body) as List<dynamic>;
+        final categoryList = jsonData.map((category) {
+          final idKategori = category['id_kategori'].toString();
+          final namaKategori = category['namakategori'].toString();
+          return {'id': idKategori, 'name': namaKategori};
+        }).toList();
+
+        setState(() {
+          categories = List<Map<String, String>>.from(categoryList);
+        });
+      } else {
+        throw Exception('Failed to fetch categories: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('Failed to fetch categories: $error');
+    }
+  }
+
+  Future<void> fetchSuppliers() async {
+    try {
+      final url = Uri.parse(
+          'https://group1mobileproject.000webhostapp.com/getSuppliers.php');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body) as List<dynamic>;
+        final supplierList = jsonData.map((supplier) {
+          final idSupplier = supplier['id_supplier'].toString();
+          final namaSupplier = supplier['namasupplier'].toString();
+          return {'id': idSupplier, 'namasupplier': namaSupplier};
+        }).toList();
+
+        setState(() {
+          suppliers = List<Map<String, String>>.from(supplierList);
+        });
+      } else {
+        throw Exception('Failed to fetch suppliers: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('Failed to fetch suppliers: $error');
+    }
+  }
 
   Future<void> _submitProduct() async {
     final url =
@@ -126,10 +177,11 @@ class _InsertProductState extends State<InsertProductPage> {
                     labelText: 'Kategori',
                   ),
                   value: selectedCategory,
-                  items: categories.map((String category) {
+                  items: categories.map((Map<String, String> category) {
                     return DropdownMenuItem<String>(
-                      value: category,
-                      child: Text(category),
+                      value: category['id']!, // Use the correct data type here
+                      child:
+                          Text(category['name'] ?? ''), // Add a null check here
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -145,10 +197,11 @@ class _InsertProductState extends State<InsertProductPage> {
                     labelText: 'Supplier',
                   ),
                   value: selectedSupplier,
-                  items: suppliers.map((String supplier) {
+                  items: suppliers.map((Map<String, String> supplier) {
                     return DropdownMenuItem<String>(
-                      value: supplier,
-                      child: Text(supplier),
+                      value: supplier['id']!, // Use the correct data type here
+                      child: Text(supplier['namasupplier'] ??
+                          ''), // Add a null check here
                     );
                   }).toList(),
                   onChanged: (value) {
