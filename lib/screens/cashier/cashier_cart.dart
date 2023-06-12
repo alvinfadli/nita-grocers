@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
 import 'package:nita_grocers/screens/admin/list_product.dart';
+import 'package:nita_grocers/screens/cashier/cashier_history.dart';
 import 'package:provider/provider.dart';
 import '../../Providers/AuthProviders.dart';
 import 'cart_provider.dart';
@@ -33,7 +34,7 @@ class _CashierCartState extends State<CashierCart> {
   static List<Widget Function()> _widgetOptions = <Widget Function()>[
     () => CashierHomepage(),
     () => CashierCart(), // Pass the actual clicked items list
-    () => AdminHistoryTransaction(),
+    () => CashierHistory(),
     () => LoginScreen(),
   ];
 

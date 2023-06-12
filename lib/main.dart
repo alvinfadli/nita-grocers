@@ -4,7 +4,7 @@ import 'package:nita_grocers/screens/cashier/cart_provider.dart';
 import 'package:nita_grocers/screens/cashier/cashier_homepage.dart';
 import 'package:nita_grocers/screens/login.dart';
 import 'package:provider/provider.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'Providers/AuthProviders.dart';
 
 void main() {
@@ -25,6 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: GoogleFonts.jostTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),

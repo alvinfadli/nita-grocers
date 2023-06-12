@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
 import 'package:nita_grocers/screens/admin/list_product.dart';
 import 'package:nita_grocers/screens/cashier/cart_provider.dart';
+import 'package:nita_grocers/screens/cashier/cashier_history.dart';
 import 'package:provider/provider.dart';
 import '../../Providers/AuthProviders.dart';
 import '../login.dart';
@@ -33,7 +34,7 @@ class _CashierHomepageState extends State<CashierHomepage> {
   static final List<Widget Function()> _widgetOptions = <Widget Function()>[
     () => CashierHomepage(),
     () => CashierCart(),
-    () => AdminHistoryTransaction(),
+    () => CashierHistory(),
     () => LoginScreen(),
   ];
 

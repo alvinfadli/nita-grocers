@@ -36,17 +36,21 @@ class _EditCashierPageState extends State<EditCashierPage> {
     final response = await http.post(
       url,
       body: {
-        'name_user': namaUserController.text,
-        'username': usernameController.text,
+        'oldUsername': widget.user['username'], // Change parameter name
+        'newUsername': usernameController.text, // Change parameter name
         'password': passwordController.text,
+        'oldNameUser': widget.user['name_user'], // Change parameter name
+        'newNameUser': namaUserController.text, // Change parameter name
       },
     );
 
     if (response.statusCode == 200) {
       // Cashier updated successfully
       // You can add any additional logic here, such as showing a success message
-      Navigator.pop(
-          context, true); // Return to previous page with a success flag
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => UserListPage()),
+      );
     } else {
       // Error updating cashier
       // You can handle the error or show an error message
@@ -82,9 +86,7 @@ class _EditCashierPageState extends State<EditCashierPage> {
             // Navigate to a different page when the back button is pressed
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      UserListPage()), // Replace `MyHomePage` with the desired page
+              MaterialPageRoute(builder: (context) => UserListPage()),
             );
           },
         ),

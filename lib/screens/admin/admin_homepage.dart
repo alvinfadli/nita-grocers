@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
@@ -6,6 +7,7 @@ import 'package:nita_grocers/screens/admin/user_list.dart';
 import '../login.dart';
 import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
+import 'package:http/http.dart' as http;
 
 class AdminHomepage extends StatefulWidget {
   const AdminHomepage({Key? key}) : super(key: key);
@@ -35,32 +37,131 @@ class _AdminHomepageState extends State<AdminHomepage> {
   @override
   void initState() {
     super.initState();
+    fetchTotalAmount();
+    fetchMostBoughtProduct();
   }
-  //   return data;
-  // }
+
+  double totalAmount = 0;
+  String mostBoughtProductName = '';
+  int mostBoughtProductQuantity = 0;
+
+  Future<void> fetchTotalAmount() async {
+    final url = Uri.parse(
+        'https://group1mobileproject.000webhostapp.com/fetchTotalAmount.php');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final total = double.parse(data['total_amount']);
+      setState(() {
+        totalAmount = total;
+      });
+    }
+  }
+
+  Future<void> fetchMostBoughtProduct() async {
+    final url = Uri.parse(
+        'https://group1mobileproject.000webhostapp.com/fetchMostBoughtProduct.php');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final productName = data['nama_barang'];
+      final productQuantity = int.parse(data['total']);
+      setState(() {
+        mostBoughtProductName = productName;
+        mostBoughtProductQuantity = productQuantity;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Nita Grocers'),
-        backgroundColor: Color.fromARGB(255, 124, 181, 24),
+        title: const Text('Nita Grocers'),
+        backgroundColor: const Color.fromARGB(255, 124, 181, 24),
       ),
       body: ListView(
         shrinkWrap: true,
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Padding(
-          //   padding: EdgeInsets.all(16.0),
-          //   child: Column(),
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.all(16.0),
-          //   child: Column(),
-          // ),
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Product Terlaris :',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '$mostBoughtProductName',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      'Jumlah : $mostBoughtProductQuantity',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Penjualan Hari Ini :',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      totalAmount.toString(),
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,7 +169,7 @@ class _AdminHomepageState extends State<AdminHomepage> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -77,7 +178,7 @@ class _AdminHomepageState extends State<AdminHomepage> {
                                 color: Colors.black.withOpacity(0.2),
                                 spreadRadius: 2.0,
                                 blurRadius: 5.0,
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 3),
                               ),
                             ],
                           ),
@@ -93,26 +194,24 @@ class _AdminHomepageState extends State<AdminHomepage> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const SupplierListPage()));
-                                // Handle button 1 click
                               },
                               child: Column(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            8.0), // Add padding to the top of the image
+                                    padding: const EdgeInsets.only(top: 8.0),
                                     child: Image(
-                                      image: AssetImage('assets/supplier.png'),
+                                      image: const AssetImage(
+                                          'assets/supplier.png'),
                                       width: 100,
                                       height: 100,
                                     ),
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    padding: const EdgeInsets.only(bottom: 8.0),
                                     child: Align(
                                       alignment: Alignment.center,
-                                      child: Text(
+                                      child: const Text(
                                         'Suppliers',
                                         style: TextStyle(
                                           fontSize: 16.0,
@@ -128,10 +227,10 @@ class _AdminHomepageState extends State<AdminHomepage> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -140,7 +239,7 @@ class _AdminHomepageState extends State<AdminHomepage> {
                                 color: Colors.black.withOpacity(0.2),
                                 spreadRadius: 2.0,
                                 blurRadius: 5.0,
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 3),
                               ),
                             ],
                           ),
@@ -160,21 +259,20 @@ class _AdminHomepageState extends State<AdminHomepage> {
                               child: Column(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            8.0), // Add padding to the top of the image
+                                    padding: const EdgeInsets.only(top: 8.0),
                                     child: Image(
-                                      image: AssetImage('assets/cashier.png'),
+                                      image: const AssetImage(
+                                          'assets/cashier.png'),
                                       width: 100,
                                       height: 100,
                                     ),
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    padding: const EdgeInsets.only(bottom: 8.0),
                                     child: Align(
                                       alignment: Alignment.center,
-                                      child: Text(
+                                      child: const Text(
                                         'Cashiers',
                                         style: TextStyle(
                                           fontSize: 16.0,
