@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nita_grocers/screens/admin/admin_history.dart';
+import 'package:nita_grocers/screens/admin/supplier_list.dart';
+import 'package:nita_grocers/screens/admin/user_list.dart';
 import '../login.dart';
 import 'list_product.dart';
 import '../widgets/bottom_navigation.dart';
@@ -86,6 +88,11 @@ class _AdminHomepageState extends State<AdminHomepage> {
                             ),
                             child: GestureDetector(
                               onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SupplierListPage()));
                                 // Handle button 1 click
                               },
                               child: Column(
@@ -144,7 +151,11 @@ class _AdminHomepageState extends State<AdminHomepage> {
                             ),
                             child: GestureDetector(
                               onTap: () {
-                                // Handle button 2 click
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserListPage()));
                               },
                               child: Column(
                                 children: [
