@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:nita_grocers/screens/admin/admin_homepage.dart';
 import 'package:nita_grocers/screens/admin/edit_supplier.dart';
 import 'dart:convert';
 
@@ -24,7 +25,7 @@ class _SupplierListPageState extends State<SupplierListPage> {
   Future<void> fetchSuppliers() async {
     try {
       final url = Uri.parse(
-          'https://group1mobileproject.000webhostapp.com/getSuppliers.php');
+          'https://nitagrocersfix.000webhostapp.com/get-suppliers.php');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -54,8 +55,7 @@ class _SupplierListPageState extends State<SupplierListPage> {
     final namaSupplier = supplier['namasupplier'];
     final noTelepon = supplier['notelepon'];
 
-    final url =
-        'https://group1mobileproject.000webhostapp.com/deleteSupplier.php';
+    final url = 'https://nitagrocersfix.000webhostapp.com/delete-supplier.php';
 
     final response = await http.post(
       Uri.parse(url),
@@ -124,6 +124,17 @@ class _SupplierListPageState extends State<SupplierListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    AdminHomepage(), // Replace `DestinationPage` with your desired page
+              ),
+            );
+          },
+        ),
         title: Text('Supplier List'),
         backgroundColor: Color.fromARGB(255, 124, 181, 24),
       ),

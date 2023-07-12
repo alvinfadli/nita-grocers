@@ -32,14 +32,14 @@ class _InsertProductState extends State<InsertProductPage> {
   Future<void> fetchCategories() async {
     try {
       final url = Uri.parse(
-          'https://group1mobileproject.000webhostapp.com/getCategories.php');
+          'https://nitagrocersfix.000webhostapp.com/get-categories.php');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body) as List<dynamic>;
         final categoryList = jsonData.map((category) {
           final idKategori = category['id_kategori'].toString();
-          final namaKategori = category['namakategori'].toString();
+          final namaKategori = category['nama_kategori'].toString();
           return {'id': idKategori, 'name': namaKategori};
         }).toList();
 
@@ -57,7 +57,7 @@ class _InsertProductState extends State<InsertProductPage> {
   Future<void> fetchSuppliers() async {
     try {
       final url = Uri.parse(
-          'https://group1mobileproject.000webhostapp.com/getSuppliers.php');
+          'https://nitagrocersfix.000webhostapp.com/get-suppliers.php');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -80,8 +80,7 @@ class _InsertProductState extends State<InsertProductPage> {
   }
 
   Future<void> _submitProduct() async {
-    final url =
-        'https://group1mobileproject.000webhostapp.com/inputProduct.php';
+    final url = 'https://nitagrocersfix.000webhostapp.com/insert-product.php';
 
     final response = await http.post(
       Uri.parse(url),

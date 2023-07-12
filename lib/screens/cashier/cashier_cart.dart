@@ -61,7 +61,7 @@ class _CashierCartState extends State<CashierCart> {
       'id_user': userID, // Include the name_user key
     };
     final url =
-        'https://group1mobileproject.000webhostapp.com/inputTransaction.php';
+        'https://nitagrocersfix.000webhostapp.com/input-transaction.php';
     final response =
         await http.post(Uri.parse(url), body: json.encode(orderData));
 

@@ -31,7 +31,7 @@ class _EditCashierPageState extends State<EditCashierPage> {
 
   Future<void> _updateCashier() async {
     final url = Uri.parse(
-        'https://group1mobileproject.000webhostapp.com/updateCashier.php');
+        'https://nitagrocersfix.000webhostapp.com/update-cashier.php');
 
     final response = await http.post(
       url,

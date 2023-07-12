@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                   final password = passwordController.text;
                   try {
                     final url = Uri.parse(
-                        'https://group1mobileproject.000webhostapp.com/login.php');
+                        'https://nitagrocersfix.000webhostapp.com/login.php');
                     final response = await http.post(
                       url,
                       headers: {

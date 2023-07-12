@@ -32,7 +32,7 @@ class AuthProvider with ChangeNotifier {
   Future<void> login(String username, String password) async {
     try {
       final url =
-          Uri.parse('https://group1mobileproject.000webhostapp.com/login.php');
+          Uri.parse('https://nitagrocersfix.000webhostapp.com/login.php');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},

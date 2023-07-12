@@ -45,7 +45,7 @@ class _AdminHistoryTransactionState extends State<AdminHistoryTransaction> {
 
   Future<void> fetchTransaction() async {
     String url =
-        'https://group1mobileproject.000webhostapp.com/Transactions.php';
+        'https://nitagrocersfix.000webhostapp.com/get-transactions.php';
 
     // Menentukan tanggal pencarian jika ada
     String? searchDate;
