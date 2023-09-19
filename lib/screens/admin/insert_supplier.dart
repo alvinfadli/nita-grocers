@@ -14,8 +14,7 @@ class _InsertSupplierPageState extends State<InsertSupplierPage> {
   TextEditingController noTeleponController = TextEditingController();
 
   Future<void> _submitSupplier() async {
-    final url =
-        'https://group1mobileproject.000webhostapp.com/insertSupplier.php';
+    final url = 'https://nitagrocersfix.000webhostapp.com/insert-supplier.php';
 
     final response = await http.post(
       Uri.parse(url),

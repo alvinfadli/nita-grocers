@@ -47,7 +47,7 @@ class _AdminHomepageState extends State<AdminHomepage> {
 
   Future<void> fetchTotalAmount() async {
     final url = Uri.parse(
-        'https://group1mobileproject.000webhostapp.com/fetchTotalAmount.php');
+        'https://nitagrocersfix.000webhostapp.com/fetch-total-amount.php');
 
     final response = await http.get(url);
 
@@ -62,7 +62,7 @@ class _AdminHomepageState extends State<AdminHomepage> {
 
   Future<void> fetchMostBoughtProduct() async {
     final url = Uri.parse(
-        'https://group1mobileproject.000webhostapp.com/fetchMostBoughtProduct.php');
+        'https://nitagrocersfix.000webhostapp.com/fetch-most-bought.php');
 
     final response = await http.get(url);
 

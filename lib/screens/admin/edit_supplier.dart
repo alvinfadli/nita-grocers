@@ -41,7 +41,7 @@ class _EditSupplierPageState extends State<EditSupplierPage> {
       final noTelepon = _noTeleponController.text;
 
       final url =
-          'https://group1mobileproject.000webhostapp.com/updateSupplier.php';
+          'https://nitagrocersfix.000webhostapp.com/update-supplier.php';
 
       final response = await http.post(
         Uri.parse(url),

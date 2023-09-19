@@ -25,8 +25,8 @@ class _UserListPageState extends State<UserListPage> {
 
   Future<void> fetchUsers() async {
     try {
-      final url = Uri.parse(
-          'https://group1mobileproject.000webhostapp.com/getUsers.php');
+      final url =
+          Uri.parse('https://nitagrocersfix.000webhostapp.com/get-users.php');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -71,7 +71,7 @@ class _UserListPageState extends State<UserListPage> {
     final userID = user['id_user'];
 
     final url = Uri.parse(
-        'https://group1mobileproject.000webhostapp.com/deleteUser.php');
+        'https://nitagrocersfix.000webhostapp.com/delete-cashier.php');
 
     final response = await http.post(
       url,

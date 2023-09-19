@@ -51,7 +51,7 @@ class _CashierHomepageState extends State<CashierHomepage> {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://group1mobileproject.000webhostapp.com/CashierProducts.php'),
+            'https://nitagrocersfix.000webhostapp.com/get-cashier-products.php'),
       );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

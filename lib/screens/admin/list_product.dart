@@ -43,7 +43,7 @@ class _CashierListProductState extends State<CashierListProduct> {
   Future<void> fetchProductData() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://group1mobileproject.000webhostapp.com/getProduct.php'));
+          'https://nitagrocersfix.000webhostapp.com/get-products.php'));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = jsonDecode(response.body);
         List<Produk> products = [];

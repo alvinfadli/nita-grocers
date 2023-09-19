@@ -15,7 +15,7 @@ class _InsertCashierPageState extends State<InsertCashierPage> {
   TextEditingController passwordController = TextEditingController();
 
   Future<void> _submitCashier() async {
-    final url = 'https://group1mobileproject.000webhostapp.com/insertUser.php';
+    final url = 'https://nitagrocersfix.000webhostapp.com/insert-user.php';
 
     final response = await http.post(
       Uri.parse(url),
